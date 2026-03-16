@@ -10,54 +10,49 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:rajeshchittyal21@gmail.com" data-cursor="disable">
-                rajeshchittyal21@gmail.com
+              <a href="mailto:sohaglikebug@gmail.com" target="_blank" data-cursor="disable">
+                sohaglikebug@gmail.com
               </a>
             </p>
-            <h4>Education</h4>
-            <p>BSc in Computer Science</p>
+            <h4>Phone</h4>
+            <p>+60 183118459</p>
+            <h4>Location</h4>
+            <p>Lot 9677A, Kawasan Perindustrian, Desa Aman Batu 11, Desa Aman, 47000 Sungai Buloh, Selangor, Malaysia.</p>
           </div>
           <div className="contact-box">
             <h4>Social</h4>
             <a
-              href="https://github.com/raxx21"
+              href="https://www.facebook.com/azharul.islam.sohag.2025"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
-              Github <MdArrowOutward />
+              Facebook <MdArrowOutward />
             </a>
             <a
-              href="https://www.linkedin.com/in/rajesh-chityal-2a70141b3"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Linkedin <MdArrowOutward />
-            </a>
-            <a
-              href="https://x.com/raxx21_official"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.instagram.com/therajeshchityal"
+              href="https://www.instagram.com/azharul_islam_sohag/"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
               Instagram <MdArrowOutward />
             </a>
+            <a
+              href="https://wa.me/60183118459"
+              target="_blank"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              Whatsapp <MdArrowOutward />
+            </a>
           </div>
           <div className="contact-box">
+            <img src="/images/tom-meme.png" alt="Tom Meme" className="footer-meme" />
             <h2>
-              Designed and Developed <br /> by <span>Rajesh Chityal</span>
+              Designed and Developed <br /> by <span>Azharul Islam Sohag</span>
             </h2>
             <h5>
-              <MdCopyright /> 2025
+              <MdCopyright /> 2026
             </h5>
           </div>
         </div>

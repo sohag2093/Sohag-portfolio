@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
-import { EffectComposer, N8AO } from "@react-three/postprocessing";
+import { Environment, Decal } from "@react-three/drei";
 import {
   BallCollider,
   Physics,
@@ -12,29 +11,38 @@ import {
 } from "@react-three/rapier";
 
 const textureLoader = new THREE.TextureLoader();
-const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
+const uniqueLogos = [
+  {"url": "/images/custom-ps.png", "color": "#001833"},
+  {"url": "/images/custom-pr.png", "color": "#00005b"},
+  {"url": "/images/custom-ae.png", "color": "#00005b"},
+  {"url": "/images/custom-ai.png", "color": "#300000"},
+  {"url": "/images/custom-id.png", "color": "#470019"},
+  {"url": "/images/custom-sketchup.png", "color": "#ffffff"},
+  {"url": "/images/custom-blender.png", "color": "#ffffff"},
+  {"url": "/images/custom-office.png", "color": "#ffffff"},
+  {"url": "/images/custom-shield.png", "color": "#ffffff"},
+  {"url": "/images/custom-a.jpg", "color": "#ffffff"},
+  {"url": "/images/gemini.svg", "color": "#ffffff"},
+  {"url": "/images/ai.svg", "color": "#ffffff"}
 ];
-const textures = imageUrls.map((url) => textureLoader.load(url));
+
+const spheresData = [...Array(30)].map((_, i) => {
+  const logoConfig = uniqueLogos[i % uniqueLogos.length];
+  return {
+    scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+    texture: textureLoader.load(logoConfig.url),
+    color: logoConfig.color
+  };
+});
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
-
-const spheres = [...Array(30)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
-}));
 
 type SphereProps = {
   vec?: THREE.Vector3;
   scale: number;
   r?: typeof THREE.MathUtils.randFloatSpread;
-  material: THREE.MeshPhysicalMaterial;
+  texture: THREE.Texture;
+  color: string;
   isActive: boolean;
 };
 
@@ -42,7 +50,8 @@ function SphereGeo({
   vec = new THREE.Vector3(),
   scale,
   r = THREE.MathUtils.randFloatSpread,
-  material,
+  texture,
+  color,
   isActive,
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
@@ -84,9 +93,19 @@ function SphereGeo({
         receiveShadow
         scale={scale}
         geometry={sphereGeometry}
-        material={material}
         rotation={[0.3, 1, 1]}
-      />
+      >
+        <meshPhysicalMaterial 
+          color={color}
+          emissive={color}
+          emissiveIntensity={0.2}
+          roughness={0.7}
+          metalness={0.1}
+          clearcoat={0.1}
+        />
+        <Decal position={[0, 0, 1]} rotation={[0, 0, 0]} scale={1.4} map={texture} />
+        <Decal position={[0, 0, -1]} rotation={[0, Math.PI, 0]} scale={1.4} map={texture} />
+      </mesh>
     </RigidBody>
   );
 }
@@ -151,20 +170,6 @@ const TechStack = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const materials = useMemo(() => {
-    return textures.map(
-      (texture) =>
-        new THREE.MeshPhysicalMaterial({
-          map: texture,
-          emissive: "#ffffff",
-          emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.5,
-          roughness: 1,
-          clearcoat: 0.1,
-        })
-    );
-  }, []);
 
   return (
     <div className="techstack">
@@ -172,7 +177,7 @@ const TechStack = () => {
 
       <Canvas
         shadows
-        gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
+        gl={{ alpha: true, stencil: false, depth: true, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
@@ -189,11 +194,10 @@ const TechStack = () => {
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>
           <Pointer isActive={isActive} />
-          {spheres.map((props, i) => (
+          {spheresData.map((props, i) => (
             <SphereGeo
               key={i}
               {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
               isActive={isActive}
             />
           ))}
@@ -203,9 +207,6 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
       </Canvas>
     </div>
   );

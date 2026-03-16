@@ -46,6 +46,14 @@ a.contact-social {
   margin: 0;
 }
 
+.footer-meme {
+  max-width: 250px;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  display: block;
+}
+
 .contact-box h2>span {
   color: var(--accentColor);
 }

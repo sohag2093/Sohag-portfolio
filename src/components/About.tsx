@@ -6,11 +6,11 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Full Stack Developer with 4+ years of experience building scalable web
-          applications using React.js, Angular, Next.js, Node.js, and NestJS. Skilled
-          in microservices architecture, CMS development, and low-code platforms.
-          Passionate about creating high-performance, production-ready solutions
-          from concept to deployment.
+          Creative and detail-oriented Interior Graphic Designer and 3D Visualization
+          Specialist with over 5 years of professional experience in graphic design,
+          furniture visualization, and interior product presentation. Experienced in
+          producing high-quality 3D models, photorealistic renders, product visuals,
+          and marketing materials for furniture and interior products.
         </p>
       </div>
     </div>
