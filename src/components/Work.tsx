@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
+import WorkVideos from "./WorkVideos";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
@@ -137,6 +138,8 @@ const Work = () => {
             ))}
           </div>
         </div>
+
+        <WorkVideos />
       </div>
     </div>
   );
