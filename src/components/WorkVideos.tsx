@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { MdClose, MdPlayArrow } from "react-icons/md";
 import "./styles/WorkVideos.css";
 
@@ -57,7 +58,7 @@ const WorkVideos: React.FC = () => {
         </div>
       </div>
 
-      {selectedVideo && (
+      {selectedVideo && createPortal(
         <div className="video-modal-overlay" onClick={closeModal}>
           <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal-btn" onClick={closeModal}>
@@ -70,7 +71,8 @@ const WorkVideos: React.FC = () => {
               className="full-video-player"
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
